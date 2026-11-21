@@ -13,7 +13,8 @@ from mcp import Client
 pytestmark = pytest.mark.anyio
 
 
-async def wait_until_listening(port: int, process: subprocess.Popen, timeout: float = 30.0) -> None:
+async def wait_until_listening(port: int, process: subprocess.Popen, timeout: float = 60.0) -> None:
+    # Generous: the first start on a fresh machine compiles uvicorn and friends, which took ~20s locally.
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         if process.poll() is not None:
