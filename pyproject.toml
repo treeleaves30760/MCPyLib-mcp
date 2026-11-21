@@ -1,0 +1,59 @@
+[project]
+name = "mcpylib-mcp"
+version = "0.1.0"
+description = "MCP server that lets AI agents (Claude Code, Claude Desktop, Cursor, VS Code, ...) control a Minecraft server through MCPyLib."
+readme = "README.md"
+license = "LicenseRef-MCPyLib-NonCommercial"
+license-files = ["LICENSE"]
+authors = [
+    { name = "treeleaves30760", email = "treeleaves30760@gmail.com" },
+]
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=2.3,<3",
+    "mcpylib>=1.1.1",
+    "pydantic>=2.12",
+]
+keywords = ["mcp", "model-context-protocol", "minecraft", "mcpylib", "ai", "agents", "paper", "spigot"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Games/Entertainment",
+]
+
+[project.urls]
+Homepage = "https://github.com/treeleaves30760/MCPyLib-mcp"
+Source = "https://github.com/treeleaves30760/MCPyLib-mcp"
+Issues = "https://github.com/treeleaves30760/MCPyLib-mcp/issues"
+MCPyLib = "https://github.com/treeleaves30760/MCPyLib"
+Documentation = "https://treeleaves30760.github.io/MCPyLib-website/"
+
+[project.scripts]
+mcpylib-mcp = "mcpylib_mcp.cli:main"
+
+[dependency-groups]
+dev = [
+    "anyio>=4.9",
+    "pytest>=9.0",
+    "ruff>=0.17",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.1,<0.14"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
