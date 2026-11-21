@@ -12,7 +12,9 @@ from mcp.server.mcpserver import MCPServer
 from . import __version__
 from .bridge import MinecraftBridge
 from .config import Settings
+from .prompts import register_prompts
 from .registry import ToolRegistry
+from .resources import register_resources
 from .safety import select_tools
 from .tools import register_all
 
@@ -90,6 +92,8 @@ def create_server(settings: Settings, bridge: MinecraftBridge | None = None) -> 
         log_level=settings.log_level,  # type: ignore[arg-type]
         lifespan=lifespan,
     )
+    register_resources(server, bridge, settings, enabled)
+    register_prompts(server, settings, enabled)
     logger.info(
         "%d of %d tools enabled (read-only: %s, max blocks per call: %s)",
         len(enabled),
