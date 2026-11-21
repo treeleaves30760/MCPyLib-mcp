@@ -49,9 +49,7 @@ def test_read_only_keeps_only_non_mutating_tools():
 
 
 def test_allowlist_accepts_names_globs_and_groups():
-    selected = select_tools(
-        CATALOG, read_only=False, allowed=("run_command", "get_*", "group:players"), denied=()
-    )
+    selected = select_tools(CATALOG, read_only=False, allowed=("run_command", "get_*", "group:players"), denied=())
 
     assert selected == ["get_block", "get_players", "run_command", "teleport_player"]
 
@@ -63,9 +61,7 @@ def test_denylist_wins_over_allowlist():
 
 
 def test_read_only_cannot_be_widened_by_allowlist():
-    assert select_tools(CATALOG, read_only=True, allowed=("set_block", "get_block"), denied=()) == [
-        "get_block"
-    ]
+    assert select_tools(CATALOG, read_only=True, allowed=("set_block", "get_block"), denied=()) == ["get_block"]
 
 
 @pytest.mark.parametrize("entry", ["run_comand", "group:nope", "zzz_*"])

@@ -118,9 +118,7 @@ class FakeMinecraftServer:
         self._server = _TCPServer(("127.0.0.1", port), _Handler)
         self._server.fake = self  # type: ignore[attr-defined]
         self._port = self._server.server_address[1]
-        self._thread = threading.Thread(
-            target=self._server.serve_forever, kwargs={"poll_interval": 0.05}, daemon=True
-        )
+        self._thread = threading.Thread(target=self._server.serve_forever, kwargs={"poll_interval": 0.05}, daemon=True)
         self._thread.start()
         return self
 
@@ -247,9 +245,7 @@ class FakeMinecraftServer:
             raise FakeCommandError(f"Region too large (max 32768 blocks): {volume}")
         snapshot = {(x, y, z): self.block_at(x, y, z) for x in xs for y in ys for z in zs}
         for (x, y, z), block in snapshot.items():
-            self.blocks[
-                (p["dest_x"] + x - xs.start, p["dest_y"] + y - ys.start, p["dest_z"] + z - zs.start)
-            ] = block
+            self.blocks[(p["dest_x"] + x - xs.start, p["dest_y"] + y - ys.start, p["dest_z"] + z - zs.start)] = block
         return volume
 
     def _do_bulkedit(self, p: dict[str, Any]) -> int:
@@ -265,9 +261,7 @@ class FakeMinecraftServer:
             for i in range(0, len(numbers), 2):
                 flat.extend([numbers[i + 1]] * numbers[i])
             for index, palette_index in enumerate(flat):
-                cells.append(
-                    (index // (sy * sz), (index // sz) % sy, index % sz, p["palette"][palette_index])
-                )
+                cells.append((index // (sy * sz), (index // sz) % sy, index % sz, p["palette"][palette_index]))
         else:  # mcpylib 1.1.x: plain [x][y][z] array
             for dx, plane in enumerate(p["blocks"]):
                 for dy, column in enumerate(plane):

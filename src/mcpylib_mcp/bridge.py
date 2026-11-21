@@ -94,9 +94,7 @@ class MinecraftBridge:
                 ) from exc
             except OSError as exc:
                 self._reset()
-                raise MinecraftError(
-                    f"Lost the connection to the MCPyLib plugin at {self.target}: {exc}"
-                ) from exc
+                raise MinecraftError(f"Lost the connection to the MCPyLib plugin at {self.target}: {exc}") from exc
             except ValueError as exc:  # json.JSONDecodeError, UnicodeDecodeError
                 self._reset()
                 raise MinecraftError(
@@ -120,6 +118,4 @@ class MinecraftBridge:
 
 def _raised_by_stale_socket_check(exc: BaseException) -> bool:
     """True if ``exc`` came out of MCPyLib's connection liveness check (``_ensure_connected``)."""
-    return any(
-        frame.f_code.co_name == "_ensure_connected" for frame, _ in traceback.walk_tb(exc.__traceback__)
-    )
+    return any(frame.f_code.co_name == "_ensure_connected" for frame, _ in traceback.walk_tb(exc.__traceback__))

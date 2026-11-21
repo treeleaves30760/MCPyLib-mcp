@@ -156,9 +156,7 @@ def decode_layers(palette: Mapping[str, Any], layers: Sequence[Sequence[str]]) -
                 if char == SKIP_CHAR:
                     continue
                 if char not in palette:
-                    raise InvalidInputError(
-                        f"Character {char!r} at layers[{y}][{z}][{x}] is not in the palette."
-                    )
+                    raise InvalidInputError(f"Character {char!r} at layers[{y}][{z}][{x}] is not in the palette.")
                 value = palette[char]
                 if value is None:
                     continue
