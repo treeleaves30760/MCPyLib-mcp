@@ -457,7 +457,7 @@ and depends on **`mcpylib>=1.1.1` from PyPI**.
   in a subdirectory of that repository.
 - **When mcpylib 1.2.0 is published:** new installs pick it up automatically, and nothing here needs to
   change.
-- **Plugin compatibility:** mcpylib 1.1.1 works with MCPyLib plugin 1.1.x and 1.2.0. mcpylib 1.2.0 sends
+- **Plugin compatibility:** mcpylib 1.1.1 works with MCPyLib plugins 1.1.2 and 1.2.0. mcpylib 1.2.0 sends
   bulk edits only in a new compressed form, which needs plugin 1.2.0 or newer for `edit_blocks` and
   `build_from_layers`. The plugin build for Minecraft 26.1+ is 1.2.0, so keep the plugin up to date.
 
