@@ -97,6 +97,14 @@ def test_decode_layers_maps_characters_to_xyz_blocks():
     assert count == 4
 
 
+def test_decode_layers_reads_dot_as_air_unless_the_palette_maps_it():
+    blocks, count = decode_layers({"#": "stone"}, [["#."]])
+
+    assert blocks[1][0][0] == "minecraft:air"  # the prompts and guide promise '.' is air
+    assert count == 2
+    assert decode_layers({".": "glass"}, [["."]])[0][0][0][0] == "glass"
+
+
 def test_decode_layers_round_trips_encode_layers():
     grid = make_grid(3, 2, 4)
     grid[0][0][3] = "minecraft:stone"

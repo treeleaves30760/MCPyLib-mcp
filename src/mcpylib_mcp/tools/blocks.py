@@ -228,7 +228,8 @@ def register(reg: ToolRegistry) -> None:
             Field(
                 description=(
                     "Maps single characters to a block id, an object {block, block_state?, nbt?}, or null (leave "
-                    "unchanged). A space always means 'leave unchanged' and cannot be redefined."
+                    "unchanged). '.' is air unless mapped here. A space always means 'leave unchanged' and cannot "
+                    "be redefined."
                 )
             ),
         ],

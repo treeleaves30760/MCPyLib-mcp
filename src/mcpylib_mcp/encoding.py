@@ -6,7 +6,8 @@ Conventions shared by every encoding (and by the ``build_from_layers`` tool):
 * ``layers[y][z]`` is one row of that slice, north (lowest Z) first;
 * ``layers[y][z][x]`` is one character, west (lowest X) first.
 
-``"."`` always stands for ``minecraft:air`` and ``" "`` (space) for "nothing / leave unchanged".
+``"."`` stands for ``minecraft:air`` and ``" "`` (space) for "nothing / leave unchanged"; when
+decoding, a palette may still map ``"."`` to another block.
 MCPyLib's own 3D arrays are indexed ``[x][y][z]``; helpers here convert between the two.
 """
 
@@ -115,7 +116,8 @@ def decode_layers(palette: Mapping[str, Any], layers: Sequence[Sequence[str]]) -
     """Turn a palette plus ``layers[y][z]`` strings into MCPyLib's ``[x][y][z]`` array.
 
     Returns the array and the number of blocks it places. Space characters, and palette
-    entries whose value is ``None``, become ``None`` (leave the existing block unchanged).
+    entries whose value is ``None``, become ``None`` (leave the existing block unchanged);
+    ``"."`` is air unless the palette maps it to something else.
     """
     for key in palette:
         if len(key) != 1:
@@ -155,9 +157,12 @@ def decode_layers(palette: Mapping[str, Any], layers: Sequence[Sequence[str]]) -
             for x, char in enumerate(row):
                 if char == SKIP_CHAR:
                     continue
-                if char not in palette:
+                if char in palette:
+                    value = palette[char]
+                elif char == AIR_CHAR:
+                    value = AIR
+                else:
                     raise InvalidInputError(f"Character {char!r} at layers[{y}][{z}][{x}] is not in the palette.")
-                value = palette[char]
                 if value is None:
                     continue
                 blocks[x][y][z] = value
