@@ -54,16 +54,15 @@ Once it is connected, you can ask things like:
 3. **Check that the MCP server runs.** This needs no token and does not connect to Minecraft:
 
    ```bash
-   uvx --from git+https://github.com/treeleaves30760/MCPyLib-mcp mcpylib-mcp --list-tools
+   uvx mcpylib-mcp --list-tools
    ```
 
 4. **Add it to your MCP client** using one of the configurations below, then ask your agent who is online.
 
-`uvx` downloads and caches the server the first time it runs. Add `--refresh` once to pick up newer commits.
-To pin a version, append `@<tag-or-commit>` to the URL.
+`uvx` downloads the server from PyPI and caches it the first time it runs. Add `--refresh` once to pick up a
+new release, or pin one with `uvx mcpylib-mcp@0.1.0`.
 
-If you prefer pip, run `pip install git+https://github.com/treeleaves30760/MCPyLib-mcp`. That installs the
-`mcpylib-mcp` command.
+If you prefer pip, run `pip install mcpylib-mcp`. That installs the `mcpylib-mcp` command.
 
 ## Connect your MCP client
 
@@ -73,7 +72,7 @@ In every example, replace `<token>` with your token. If Minecraft runs on a diff
 ### Claude Code
 
 ```bash
-claude mcp add mcpylib -e MCPYLIB_TOKEN=<token> -- uvx --from git+https://github.com/treeleaves30760/MCPyLib-mcp mcpylib-mcp
+claude mcp add mcpylib -e MCPYLIB_TOKEN=<token> -- uvx mcpylib-mcp
 ```
 
 - **Remote server:** add `-e MCPYLIB_HOST=192.168.1.20`.
@@ -88,7 +87,7 @@ environment. This keeps the token out of the repository:
   "mcpServers": {
     "mcpylib": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/treeleaves30760/MCPyLib-mcp", "mcpylib-mcp"],
+      "args": ["mcpylib-mcp"],
       "env": { "MCPYLIB_TOKEN": "${MCPYLIB_TOKEN}" }
     }
   }
@@ -107,7 +106,7 @@ environment. This keeps the token out of the repository:
      "mcpServers": {
        "mcpylib": {
          "command": "uvx",
-         "args": ["--from", "git+https://github.com/treeleaves30760/MCPyLib-mcp", "mcpylib-mcp"],
+         "args": ["mcpylib-mcp"],
          "env": {
            "MCPYLIB_TOKEN": "<token>",
            "MCPYLIB_HOST": "localhost",
@@ -132,7 +131,7 @@ Add the server to `~/.cursor/mcp.json` to use it in every project, or to `.curso
   "mcpServers": {
     "mcpylib": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/treeleaves30760/MCPyLib-mcp", "mcpylib-mcp"],
+      "args": ["mcpylib-mcp"],
       "env": { "MCPYLIB_TOKEN": "<token>" }
     }
   }
@@ -159,7 +158,7 @@ so the token is not written into the file:
     "mcpylib": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/treeleaves30760/MCPyLib-mcp", "mcpylib-mcp"],
+      "args": ["mcpylib-mcp"],
       "env": { "MCPYLIB_TOKEN": "${input:mcpylib-token}" }
     }
   }
@@ -169,14 +168,14 @@ so the token is not written into the file:
 ### Other clients, and streamable HTTP
 
 Any client that launches stdio servers works the same way. Use the command
-`uvx --from git+https://github.com/treeleaves30760/MCPyLib-mcp mcpylib-mcp` with `MCPYLIB_TOKEN` set in its
+`uvx mcpylib-mcp` with `MCPYLIB_TOKEN` set in its
 environment.
 
 Some clients connect to a URL instead. Streamable HTTP also lets several clients share one server process.
 To use it, start the server yourself:
 
 ```bash
-MCPYLIB_TOKEN=<token> uvx --from git+https://github.com/treeleaves30760/MCPyLib-mcp mcpylib-mcp --transport http --port 8000
+MCPYLIB_TOKEN=<token> uvx mcpylib-mcp --transport http --port 8000
 ```
 
 In PowerShell, run `$env:MCPYLIB_TOKEN = "<token>"` first. Then point each client at
@@ -447,18 +446,12 @@ Set `MCPYLIB_LOG_LEVEL=DEBUG` to see each call to the plugin in the client's MCP
 ## The mcpylib dependency
 
 This server talks to the plugin through MCPyLib's Python client, [`mcpylib`](https://pypi.org/project/mcpylib/),
-and depends on **`mcpylib>=1.1.1` from PyPI**.
+and depends on **`mcpylib>=1.2.2`** from PyPI.
 
-- **Why 1.1.1:** it is the first release with everything the tools use, namely the persistent connection
-  and `getblocks`. It is on PyPI, so `uvx --from git+...`, `pip install` and `uv` resolve it today without
-  extra indexes or git URLs.
-- **Why not a git dependency:** depending on MCPyLib's repository directly would block a future PyPI release
-  of this package, because PyPI rejects packages whose dependencies are direct URLs. Its client also lives
-  in a subdirectory of that repository.
-- **Newer mcpylib releases** are picked up automatically by new installs.
-- **Plugin compatibility:** mcpylib 1.2.x sends bulk edits only in a compressed form, which needs plugin
-  1.2.0 or newer for `edit_blocks` and `build_from_layers`. Plugin 1.2.1 adds doors and beds in
-  `edit_blocks`, and 1.2.2 rejects block states a block doesn't have, so use the latest plugin.
+- **Plugin compatibility:** mcpylib 1.2.x sends bulk edits in a compressed form that needs plugin 1.2.0 or
+  newer for `edit_blocks` and `build_from_layers`. Plugin 1.2.1 adds doors and beds in `edit_blocks`, and
+  1.2.2 rejects block states a block doesn't have, so use the latest plugin.
+- **Why not a git dependency:** PyPI rejects packages whose dependencies are direct URLs.
 
 ## Development
 

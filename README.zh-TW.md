@@ -26,7 +26,7 @@ MCPyLib-mcp 是一個 [MCP](https://modelcontextprotocol.io) 伺服器，透過 
 3. 確認可以執行。這一步不需要 token，也不會連線到 Minecraft：
 
    ```bash
-   uvx --from git+https://github.com/treeleaves30760/MCPyLib-mcp mcpylib-mcp --list-tools
+   uvx mcpylib-mcp --list-tools
    ```
 
 4. 依下方說明加入你的 MCP 客戶端。
@@ -34,7 +34,7 @@ MCPyLib-mcp 是一個 [MCP](https://modelcontextprotocol.io) 伺服器，透過 
 ### Claude Code
 
 ```bash
-claude mcp add mcpylib -e MCPYLIB_TOKEN=<token> -- uvx --from git+https://github.com/treeleaves30760/MCPyLib-mcp mcpylib-mcp
+claude mcp add mcpylib -e MCPYLIB_TOKEN=<token> -- uvx mcpylib-mcp
 ```
 
 ### Claude Desktop 與 Cursor
@@ -46,7 +46,7 @@ Claude Desktop 的設定檔是 `claude_desktop_config.json`，Cursor 的是 `~/.
   "mcpServers": {
     "mcpylib": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/treeleaves30760/MCPyLib-mcp", "mcpylib-mcp"],
+      "args": ["mcpylib-mcp"],
       "env": { "MCPYLIB_TOKEN": "<token>", "MCPYLIB_HOST": "localhost" }
     }
   }
