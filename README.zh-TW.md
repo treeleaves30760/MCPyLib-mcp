@@ -16,7 +16,7 @@ MCPyLib-mcp 是一個 [MCP](https://modelcontextprotocol.io) 伺服器，透過 
 
 ## 需求
 
-- Paper 或 Spigot 伺服器，Minecraft 26.1 以上（Java 25），並安裝 MCPyLib 插件 1.2.0 以上。
+- Paper 或 Spigot 伺服器，Minecraft 26.1 以上（Java 25），並安裝 MCPyLib 插件 1.2.0 以上（建議 1.2.2）。
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)，它提供 `uvx`。
 
 ## 快速開始

@@ -154,7 +154,8 @@ def register(reg: ToolRegistry) -> None:
     @reg.tool(GROUP, "Set block", destructive=True, idempotent=True)
     def set_block(x: X, y: Y, z: Z, block: BlockId, block_state: BlockState = None, nbt: Nbt = None) -> ToolResult:
         """Place one block, replacing what is there. For more than a handful of blocks use fill_region or
-        build_from_layers. Doors and beds need both halves placed explicitly."""
+        build_from_layers. A door or bed placed here needs both halves set separately; edit_blocks and
+        build_from_layers add the second half."""
         placed = bridge.call("setblock", x, y, z, block, block_state=state_strings(block_state), nbt=nbt)
         return ok({"x": x, "y": y, "z": z, "block": block, "placed": placed == 1})
 

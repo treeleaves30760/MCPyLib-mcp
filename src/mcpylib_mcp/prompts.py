@@ -45,7 +45,8 @@ Work in this order:
    the plan and the corner coordinates in one or two sentences.
 4. Prepare the site: fill_region with air to clear the space above the ground, and solid blocks to level it.
 5. Build: fill_region for solid boxes (walls, floors, foundations), build_from_layers for detailed parts
-   (windows, doors with block_state, roofs, decoration). Doors need a bottom and a top half.
+   (windows, doors with block_state, roofs, decoration). A door's lower half is enough; the upper half
+   is added.
 6. Verify: read the key layers back with get_blocks and fix anything that is off.
 7. Report what you built and where (corner coordinates).
 

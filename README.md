@@ -40,7 +40,7 @@ Once it is connected, you can ask things like:
 ## Requirements
 
 - A Paper or Spigot server running Minecraft 26.1 or newer (Java 25) with the
-  [MCPyLib plugin](https://github.com/treeleaves30760/MCPyLib) 1.2.0 or newer.
+  [MCPyLib plugin](https://github.com/treeleaves30760/MCPyLib) 1.2.0 or newer (1.2.2 recommended).
 - [uv](https://docs.astral.sh/uv/getting-started/installation/), which provides `uvx`. If you don't use
   uv, you need Python 3.11+ and pip.
 
@@ -455,11 +455,10 @@ and depends on **`mcpylib>=1.1.1` from PyPI**.
 - **Why not a git dependency:** depending on MCPyLib's repository directly would block a future PyPI release
   of this package, because PyPI rejects packages whose dependencies are direct URLs. Its client also lives
   in a subdirectory of that repository.
-- **When mcpylib 1.2.0 is published:** new installs pick it up automatically, and nothing here needs to
-  change.
-- **Plugin compatibility:** mcpylib 1.1.1 works with MCPyLib plugins 1.1.2 and 1.2.0. mcpylib 1.2.0 sends
-  bulk edits only in a new compressed form, which needs plugin 1.2.0 or newer for `edit_blocks` and
-  `build_from_layers`. The plugin build for Minecraft 26.1+ is 1.2.0, so keep the plugin up to date.
+- **Newer mcpylib releases** are picked up automatically by new installs.
+- **Plugin compatibility:** mcpylib 1.2.x sends bulk edits only in a compressed form, which needs plugin
+  1.2.0 or newer for `edit_blocks` and `build_from_layers`. Plugin 1.2.1 adds doors and beds in
+  `edit_blocks`, and 1.2.2 rejects block states a block doesn't have, so use the latest plugin.
 
 ## Development
 

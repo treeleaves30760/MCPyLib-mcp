@@ -103,11 +103,9 @@ ItemId = resource_id("Item id such as 'minecraft:diamond' or 'bread'.")
 GameMode = Literal["survival", "creative", "adventure", "spectator"]
 
 BLOCK_STATE_HELP = (
-    "Block state properties, e.g. {'facing': 'north'}. Handled specially: facing (north/south/east/west/up/down), "
-    "axis (x/y/z), half (top/bottom - also for doors and tall plants), shape (stairs: straight/inner_left/"
-    "inner_right/outer_left/outer_right), rotation (signs, banners, heads: a compass direction such as "
-    "north_north_east, not 0-15), waterlogged/open/powered (true/false). Any other vanilla property also works "
-    "(e.g. type=top for slabs, hinge=left, lit=true)."
+    "Block state properties, e.g. {'facing': 'north', 'half': 'top'}. Any vanilla property of the block works "
+    "(type=top for slabs, hinge=left, part=head, lit=true, rotation=0-15, ...); a property the block doesn't "
+    "have is an error. rotation also accepts a compass direction such as north_north_east."
 )
 NBT_HELP = (
     "Block-entity data. The plugin applies only CustomName (containers) and Text1-Text4 (sign lines); "

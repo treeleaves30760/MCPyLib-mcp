@@ -29,12 +29,12 @@ BUILDING_GUIDE = """\
 
 ## Block ids and states
 - Use Minecraft ids such as `minecraft:stone` or `oak_planks` (the namespace is optional).
-- `block_state` keys: `facing` (north/south/east/west/up/down), `axis` (x/y/z), `half` (top/bottom),
-  `shape` (stairs), `rotation` (signs/banners/heads: compass names such as north_north_east, not 0-15),
-  `waterlogged`/`open`/`powered` (true/false), and any other vanilla property (`type: top` for slabs,
-  `hinge`, `lit`, ...).
-- Two-block things need both halves: a door is `half: bottom` plus `half: top` one block above, with the
-  same `facing`. The same goes for beds and tall flowers.
+- `block_state` takes any vanilla property of the block: `facing`, `axis`, `half` (stairs: top/bottom),
+  `shape`, `type` (slabs), `hinge`, `lit`, `rotation` (0-15, or a compass name such as north_north_east),
+  ... A property the block doesn't have is an error.
+- Doors, beds and tall flowers are two blocks. In `edit_blocks` and `build_from_layers` give the lower half
+  (door `half: lower`) or the bed foot and the plugin adds the other half (plugin 1.2.1+). `set_block` places
+  only the block you name, so set both halves there.
 - Only `CustomName` (containers) and `Text1`-`Text4` (sign lines) NBT data is applied.
 
 ## Choosing a tool
